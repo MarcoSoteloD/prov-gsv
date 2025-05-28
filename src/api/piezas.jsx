@@ -1,6 +1,6 @@
 import api from './axios';
 
-export const getParts = async (page = 1, perPage = 10) => {
+export const getParts = async (page = 1, perPage = 8) => {
   const response = await api.get('/piezas', {
     params: {
       page,

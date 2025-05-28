@@ -1,6 +1,6 @@
 import api from './axios';
 
-export const getCategories = async (page = 1, perPage = 6) => {
+export const getCategories = async (page = 1, perPage = 8) => {
   const response = await api.get('/categorias', {
     params: {
       page,

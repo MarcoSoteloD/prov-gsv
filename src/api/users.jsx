@@ -1,6 +1,6 @@
 import api from './axios';
 
-export const getUsers = async (page = 1, perPage = 6) => {
+export const getUsers = async (page = 1, perPage = 8) => {
   const response = await api.get('/user/usuarios', {
     params: {
       page,
