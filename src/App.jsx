@@ -10,6 +10,8 @@ import CategoryForm from './pages/CategoryForm';
 import PiezaForm from './pages/PiezaForm';
 import ProviderForm from './pages/ProviderForm';
 import SuministrosForm from './pages/SuministrosForm';
+import Usuarios from './pages/Usuarios';
+import UserForm from './pages/UserForm';
 
 
 function App() {
@@ -31,6 +33,9 @@ function App() {
           <Route path="/suministros/nuevo" element={<SuministrosForm />} />
           <Route path="/suministros/editar/:id" element={<SuministrosForm />} />
           <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/usuarios" element={<Usuarios />} />
+          <Route path="/usuarios/nuevo" element={<UserForm />} />
+          <Route path="/usuarios/editar/:id" element={<UserForm />} />
         </Route>
       </Routes>
     </BrowserRouter>
