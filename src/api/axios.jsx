@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:3000/api/',
-  //baseURL: 'https://api-prov-vd6y.onrender.com/api/', // URL base de la API
+  //baseURL: 'http://localhost:3000/api/',
+  baseURL: 'https://api-prov-vd6y.onrender.com/api/', // URL base de la API
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json'
