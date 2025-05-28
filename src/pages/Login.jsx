@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { login } from '../api/auth';
 import { useNavigate } from 'react-router-dom';
+import '../styles/login.scss';
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ export default function LoginPage() {
   return (
     <div className="login-container">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h1>Iniciar sesión</h1>
+        <h1>Proveedores GSV</h1>
         <div>
           <label>Email</label>
           <input {...register('email')} type="email" />

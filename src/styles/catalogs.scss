@@ -1,0 +1,139 @@
+@use './variables' as *;
+
+.catalog-page {
+  padding: 2rem;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.header-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 2rem;
+
+  h2 {
+    font-size: 2.0rem;
+    color: $text-dark;
+    font-weight: bold;
+    margin: 0;
+  }
+}
+
+.button {
+  background: $primary-color;
+  color: $text-light;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: 0.3s;
+  border: none;
+
+  &:hover {
+    background: #527e9b;
+  }
+}
+
+.catalog-table {
+  border-radius: $border-radius;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+  max-width: 100%;
+  color: $text-dark;
+
+  table {
+    width: 100%;
+    min-width: 600px;
+    border-collapse: collapse;
+    background-color: #ffffff;
+
+    th,
+    td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #c9c9c9;
+    }
+
+    th {
+      background: $primary-color;
+      color: #ffffff;
+      font-weight: bold;
+    }
+
+    .status {
+      padding: 4px 8px;
+      border-radius: $border-radius;
+      font-size: .9em;
+      font-weight: bold;
+
+      &.active {
+        background: #bee2c6;
+        color: #129130;
+      }
+
+      &.inactive {
+        background: #e7c4c7;
+        color: #a51f2d;
+      }
+    }
+
+    .edit-button {
+      background: $edit-color;
+      font-size: .9rem;
+      font-weight: bold;
+      color: $text-light;
+      border: none;
+      padding: 5px 10px;
+      border-radius: $border-radius;
+      cursor: pointer;
+
+      &:hover {
+        background: #58a1a5;
+      }
+    }
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+
+  button {
+    padding: 0.4rem 0.8rem;
+    border: 1px solid #ccc;
+    background-color: #ffffff;
+    cursor: pointer;
+    border-radius: $border-radius;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
+
+    &:hover:not(:disabled) {
+      background-color: #eee;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      background-color: #eee;
+      opacity: 0.5;
+    }
+  }
+
+  .page-button {
+    &.active {
+      background-color: $primary-color;
+      color: white;
+      font-weight: bold;
+    }
+  }
+
+  .nav-button {
+    border-radius: $border-radius;
+    font-weight: 500;
+    color: #333;
+  }
+}

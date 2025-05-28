@@ -112,18 +112,19 @@ export default function SupplyForm() {
   }
 
   return (
-    <div>
-      <h2>{isEditing ? 'Editar Suministro' : 'Nuevo Suministro'}</h2>
-      
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="idProveedor">Proveedor:</label>
+    <div className="form-container">
+      <h2 className="form-title">{isEditing ? 'Editar Suministro' : 'Nuevo Suministro'}</h2>
+  
+      <form onSubmit={handleSubmit} className="form">
+        <div className="form-group">
+          <label htmlFor="idProveedor" className="form-label">Proveedor:</label>
           <select
             id="idProveedor"
             name="idProveedor"
             value={formData.idProveedor}
             onChange={handleChange}
             required
+            className="form-input"
           >
             <option value="">Seleccione un proveedor</option>
             {providers?.data?.map(provider => (
@@ -133,9 +134,9 @@ export default function SupplyForm() {
             ))}
           </select>
         </div>
-        
-        <div>
-          <label htmlFor="fecha">Fecha:</label>
+  
+        <div className="form-group">
+          <label htmlFor="fecha" className="form-label">Fecha:</label>
           <input
             type="date"
             id="fecha"
@@ -143,42 +144,47 @@ export default function SupplyForm() {
             value={formData.fecha}
             onChange={handleChange}
             required
+            className="form-input"
           />
         </div>
-        
-        <div>
-          <label htmlFor="monto">Monto:</label>
+  
+        <div className="form-group">
+          <label htmlFor="monto" className="form-label">Monto:</label>
           <input
             type="number"
-            step="0.01"
+            step="0.10"
             id="monto"
             name="monto"
             value={formData.monto}
             onChange={handleChange}
             required
+            className="form-input"
           />
         </div>
-        
-        <div>
-          <label>
+  
+        <div className="form-group checkbox-group">
+          <label className="checkbox-label">
             <input
               type="checkbox"
               name="estado"
               checked={formData.estado}
               onChange={handleChange}
+              className="form-checkbox"
             />
             Activo
           </label>
         </div>
-        
-        <button type="submit" disabled={mutation.isLoading}>
-          {mutation.isLoading ? 'Guardando...' : 'Guardar'}
-        </button>
-        
-        <button type="button" onClick={() => navigate('/suministros')}>
-          Cancelar
-        </button>
+  
+        <div className="form-buttons">
+          <button type="submit" disabled={mutation.isLoading} className="btn btn-primary">
+            {mutation.isLoading ? 'Guardando...' : 'Guardar'}
+          </button>
+          <button type="button" onClick={() => navigate('/suministros')} className="btn btn-secondary">
+            Cancelar
+          </button>
+        </div>
       </form>
     </div>
   );
+  
 }

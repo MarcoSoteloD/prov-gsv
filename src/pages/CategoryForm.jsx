@@ -8,10 +8,10 @@ export default function CategoryForm() {
   const navigate = useNavigate();
   const { id } = useParams();
   const queryClient = useQueryClient();
-  
+
   const isEditing = !!id;
   const [isLoadingCategory, setIsLoadingCategory] = useState(isEditing);
-  
+
   // Estado del formulario
   const [formData, setFormData] = useState({
     nombre: '',
@@ -28,7 +28,7 @@ export default function CategoryForm() {
       try {
         const response = await getCategories(currentPage, 6);
         const category = response.data.find(cat => cat.idCategoria === parseInt(categoryId));
-        
+
         if (category) {
           foundCategory = category;
         } else {
@@ -72,7 +72,7 @@ export default function CategoryForm() {
 
   // Mutaciones para crear/actualizar
   const mutation = useMutation({
-    mutationFn: isEditing 
+    mutationFn: isEditing
       ? (data) => updateCategory(id, data)
       : createCategory,
     onSuccess: () => {
@@ -80,7 +80,7 @@ export default function CategoryForm() {
       navigate('/categorias');
     }
   });
-  
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData(prev => ({
@@ -88,7 +88,7 @@ export default function CategoryForm() {
       [name]: type === 'checkbox' ? checked : value
     }));
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     mutation.mutate(formData);
@@ -99,12 +99,12 @@ export default function CategoryForm() {
   }
 
   return (
-    <div>
-      <h2>{isEditing ? 'Editar Categoría' : 'Nueva Categoría'}</h2>
-      
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="nombre">Nombre:</label>
+    <div className="form-container">
+      <h2 className="form-title">{isEditing ? 'Editar Categoría' : 'Nueva Categoría'}</h2>
+
+      <form onSubmit={handleSubmit} className="form">
+        <div className="form-group">
+          <label htmlFor="nombre" className="form-label">Nombre:</label>
           <input
             type="text"
             id="nombre"
@@ -112,29 +112,34 @@ export default function CategoryForm() {
             value={formData.nombre}
             onChange={handleChange}
             required
+            className="form-input"
           />
         </div>
-        
-        <div>
-          <label>
+
+        <div className="form-group checkbox-group">
+          <label className="form-label checkbox-label">
             <input
               type="checkbox"
               name="estado"
               checked={formData.estado}
               onChange={handleChange}
+              className="form-checkbox"
             />
             Activo
           </label>
         </div>
-        
-        <button type="submit" disabled={mutation.isLoading}>
-          {mutation.isLoading ? 'Guardando...' : 'Guardar'}
-        </button>
-        
-        <button type="button" onClick={() => navigate('/categorias')}>
-          Cancelar
-        </button>
+
+        <div className="form-buttons">
+          <button type="submit" disabled={mutation.isLoading} className="btn btn-primary">
+            {mutation.isLoading ? 'Guardando...' : 'Guardar'}
+          </button>
+
+          <button type="button" onClick={() => navigate('/categorias')} className="btn btn-secondary">
+            Cancelar
+          </button>
+        </div>
       </form>
     </div>
   );
+
 }

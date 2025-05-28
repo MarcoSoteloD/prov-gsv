@@ -1,29 +1,41 @@
-// Estilos básicos
+// main.scss
+// SOLO estilos globales y básicos
+
+// Variables comunes (mejor moverlas a un archivo `_variables.scss`)
+@use './variables' as *;
+
+// Global styles
+html,
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+  height: 100%;
+  background-color: $background;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.login-container {
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  
-  form {
+// Página genérica
+.content {
+  flex: 1;
+  padding: 30px;
+  background-color: $background;
+  min-height: 100vh;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.02);
+  margin-left: $sidebar-width;
+
+  .page-header {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
-    
-    div {
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .error {
-      color: red;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+
+    h1 {
+      margin: 0;
+      color: $text-dark;
+      font-size: 1.8rem;
+      font-weight: 600;
     }
   }
 }

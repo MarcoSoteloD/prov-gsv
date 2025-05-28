@@ -3,12 +3,10 @@ import ReactDOM from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import App from './App';
 import './styles/main.scss';
-import './styles/categorias.scss';
-import './styles/layout.scss';
+import './styles/catalogs.scss';
 import './styles/dashboard.scss';
-import './styles/piezas.scss';
-import './styles/proveedores.scss';
-import './styles/suministros.scss';
+import './styles/form.scss'
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const queryClient = new QueryClient();
 

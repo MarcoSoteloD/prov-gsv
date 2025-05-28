@@ -99,12 +99,12 @@ export default function ProviderForm() {
   }
 
   return (
-    <div>
-      <h2>{isEditing ? 'Editar Proveedor' : 'Nuevo Proveedor'}</h2>
-      
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="nombre">Nombre:</label>
+    <div className="form-container">
+      <h2 className="form-title">{isEditing ? 'Editar Proveedor' : 'Nuevo Proveedor'}</h2>
+  
+      <form onSubmit={handleSubmit} className="form">
+        <div className="form-group">
+          <label htmlFor="nombre" className="form-label">Nombre:</label>
           <input
             type="text"
             id="nombre"
@@ -112,11 +112,12 @@ export default function ProviderForm() {
             value={formData.nombre}
             onChange={handleChange}
             required
+            className="form-input"
           />
         </div>
-        
-        <div>
-          <label htmlFor="direccion">Dirección:</label>
+  
+        <div className="form-group">
+          <label htmlFor="direccion" className="form-label">Dirección:</label>
           <input
             type="text"
             id="direccion"
@@ -124,11 +125,12 @@ export default function ProviderForm() {
             value={formData.direccion}
             onChange={handleChange}
             required
+            className="form-input"
           />
         </div>
-        
-        <div>
-          <label htmlFor="telefono">Teléfono:</label>
+  
+        <div className="form-group">
+          <label htmlFor="telefono" className="form-label">Teléfono:</label>
           <input
             type="text"
             id="telefono"
@@ -136,11 +138,12 @@ export default function ProviderForm() {
             value={formData.telefono}
             onChange={handleChange}
             required
+            className="form-input"
           />
         </div>
-        
-        <div>
-          <label htmlFor="email">Email:</label>
+  
+        <div className="form-group">
+          <label htmlFor="email" className="form-label">Email:</label>
           <input
             type="email"
             id="email"
@@ -148,29 +151,33 @@ export default function ProviderForm() {
             value={formData.email}
             onChange={handleChange}
             required
+            className="form-input"
           />
         </div>
-        
-        <div>
-          <label>
+  
+        <div className="form-group checkbox-group">
+          <label className="checkbox-label">
             <input
               type="checkbox"
               name="estado"
               checked={formData.estado}
               onChange={handleChange}
+              className="form-checkbox"
             />
             Activo
           </label>
         </div>
-        
-        <button type="submit" disabled={mutation.isLoading}>
-          {mutation.isLoading ? 'Guardando...' : 'Guardar'}
-        </button>
-        
-        <button type="button" onClick={() => navigate('/proveedores')}>
-          Cancelar
-        </button>
+  
+        <div className="form-buttons">
+          <button type="submit" disabled={mutation.isLoading} className="btn btn-primary">
+            {mutation.isLoading ? 'Guardando...' : 'Guardar'}
+          </button>
+          <button type="button" onClick={() => navigate('/proveedores')} className="btn btn-secondary">
+            Cancelar
+          </button>
+        </div>
       </form>
     </div>
   );
+  
 }

@@ -1,0 +1,83 @@
+@use './variables' as *;
+
+.login-container {
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(255, 255, 255);
+  
+    form {
+      background: linear-gradient(180deg, #203c4e, $primary-color);
+      padding: 2rem 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(5px);
+      min-width: 300px;
+      width: 100%;
+      max-width: 400px;
+  
+      h1 {
+        margin-bottom: 1.5rem;
+        font-size: 1.8rem;
+        text-align: center;
+        color: #ffffff;
+      }
+  
+      div {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1.2rem;
+  
+        label {
+          margin-bottom: 0.5rem;
+          font-weight: bold;
+          font-size: 0.9rem;
+        }
+  
+        input {
+          padding: 0.7rem;
+          border-radius: 6px;
+          border: 1px solid #000000;
+          color: #000000;
+          font-size: 1rem;
+  
+          &:focus {
+            outline: none;
+            border-color: #d4b0f2;
+            box-shadow: 0 0 0 2px rgba(158, 106, 214, 0.3);
+          }
+        }
+      }
+  
+      button {
+        width: 100%;
+        padding: 0.8rem;
+        background-color: #3C6E71;
+        border: none;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 1rem;
+        cursor: pointer;
+        color: white;
+        transition: background-color 0.3s;
+  
+        &:hover:not(:disabled) {
+          background-color: #696969;
+        }
+  
+        &:disabled {
+          background-color: #4d4d4d;
+          cursor: not-allowed;
+        }
+      }
+  
+      .error {
+        margin-top: 1rem;
+        color: #ff5b5b;
+        text-align: center;
+        font-size: 0.9rem;
+      }
+    }
+  }
+  

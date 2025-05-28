@@ -119,12 +119,12 @@ export default function PartForm() {
   }
 
   return (
-    <div>
-      <h2>{isEditing ? 'Editar Pieza' : 'Nueva Pieza'}</h2>
-      
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="nombre">Nombre:</label>
+    <div className="form-container">
+      <h2 className="form-title">{isEditing ? 'Editar Pieza' : 'Nueva Pieza'}</h2>
+  
+      <form onSubmit={handleSubmit} className="form">
+        <div className="form-group">
+          <label htmlFor="nombre" className="form-label">Nombre:</label>
           <input
             type="text"
             id="nombre"
@@ -132,11 +132,12 @@ export default function PartForm() {
             value={formData.nombre}
             onChange={handleChange}
             required
+            className="form-input"
           />
         </div>
-        
-        <div>
-          <label htmlFor="color">Color:</label>
+  
+        <div className="form-group">
+          <label htmlFor="color" className="form-label">Color:</label>
           <input
             type="text"
             id="color"
@@ -144,11 +145,12 @@ export default function PartForm() {
             value={formData.color}
             onChange={handleChange}
             required
+            className="form-input"
           />
         </div>
-        
-        <div>
-          <label htmlFor="precio">Precio:</label>
+  
+        <div className="form-group">
+          <label htmlFor="precio" className="form-label">Precio:</label>
           <input
             type="number"
             step="0.01"
@@ -157,17 +159,19 @@ export default function PartForm() {
             value={formData.precio}
             onChange={handleChange}
             required
+            className="form-input"
           />
         </div>
-        
-        <div>
-          <label htmlFor="idCategoria">Categoría:</label>
+  
+        <div className="form-group">
+          <label htmlFor="idCategoria" className="form-label">Categoría:</label>
           <select
             id="idCategoria"
             name="idCategoria"
             value={formData.idCategoria}
             onChange={handleChange}
             required
+            className="form-input"
           >
             <option value="">Seleccione una categoría</option>
             {categories?.data?.map(cat => (
@@ -177,9 +181,9 @@ export default function PartForm() {
             ))}
           </select>
         </div>
-        
-        <div>
-          <label htmlFor="medida">Medida:</label>
+  
+        <div className="form-group">
+          <label htmlFor="medida" className="form-label">Medida:</label>
           <input
             type="text"
             id="medida"
@@ -187,11 +191,12 @@ export default function PartForm() {
             value={formData.medida}
             onChange={handleChange}
             required
+            className="form-input"
           />
         </div>
-        
-        <div>
-          <label htmlFor="stock">Stock:</label>
+  
+        <div className="form-group">
+          <label htmlFor="stock" className="form-label">Stock:</label>
           <input
             type="number"
             id="stock"
@@ -199,28 +204,31 @@ export default function PartForm() {
             value={formData.stock}
             onChange={handleChange}
             required
+            className="form-input"
           />
         </div>
-        
-        <div>
-          <label>
+  
+        <div className="form-group checkbox-group">
+          <label className="checkbox-label">
             <input
               type="checkbox"
               name="estado"
               checked={formData.estado}
               onChange={handleChange}
+              className="form-checkbox"
             />
             Activo
           </label>
         </div>
-        
-        <button type="submit" disabled={mutation.isLoading}>
-          {mutation.isLoading ? 'Guardando...' : 'Guardar'}
-        </button>
-        
-        <button type="button" onClick={() => navigate('/piezas')}>
-          Cancelar
-        </button>
+  
+        <div className="form-buttons">
+          <button type="submit" disabled={mutation.isLoading} className="btn btn-primary">
+            {mutation.isLoading ? 'Guardando...' : 'Guardar'}
+          </button>
+          <button type="button" onClick={() => navigate('/piezas')} className="btn btn-secondary">
+            Cancelar
+          </button>
+        </div>
       </form>
     </div>
   );
