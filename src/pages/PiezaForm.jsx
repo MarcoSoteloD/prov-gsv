@@ -3,15 +3,16 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { createPart, updatePart, getParts } from '../api/piezas';
 import { getCategories } from '../api/categories';
+import { fetchCsrfToken } from '../api/axios';
 
 export default function PartForm() {
   const navigate = useNavigate();
   const { id } = useParams();
   const queryClient = useQueryClient();
-  
+
   const isEditing = !!id;
   const [isLoadingPart, setIsLoadingPart] = useState(isEditing);
-  
+
   const [formData, setFormData] = useState({
     nombre: '',
     color: '',
@@ -37,7 +38,7 @@ export default function PartForm() {
       try {
         const response = await getParts(currentPage, 10);
         const part = response.data.find(p => p.idPieza === parseInt(partId));
-        
+
         if (part) {
           foundPart = part;
         } else {
@@ -52,6 +53,11 @@ export default function PartForm() {
 
     return foundPart;
   };
+
+  // Obtener token CSRF al montar el formulario
+  useEffect(() => {
+    fetchCsrfToken();
+  }, []);
 
   useEffect(() => {
     if (!isEditing) return;
@@ -83,7 +89,7 @@ export default function PartForm() {
   }, [id, isEditing]);
 
   const mutation = useMutation({
-    mutationFn: isEditing 
+    mutationFn: isEditing
       ? (data) => updatePart(id, data)
       : createPart,
     onSuccess: () => {
@@ -91,7 +97,7 @@ export default function PartForm() {
       navigate('/piezas');
     }
   });
-  
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData(prev => ({
@@ -99,10 +105,10 @@ export default function PartForm() {
       [name]: type === 'checkbox' ? checked : value
     }));
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     // Convertir a número los campos necesarios
     const dataToSend = {
       ...formData,
@@ -110,7 +116,7 @@ export default function PartForm() {
       stock: parseInt(formData.stock),
       idCategoria: parseInt(formData.idCategoria)
     };
-    
+
     mutation.mutate(dataToSend);
   };
 
@@ -121,7 +127,7 @@ export default function PartForm() {
   return (
     <div className="form-container">
       <h2 className="form-title">{isEditing ? 'Editar Pieza' : 'Nueva Pieza'}</h2>
-  
+
       <form onSubmit={handleSubmit} className="form">
         <div className="form-group">
           <label htmlFor="nombre" className="form-label">Nombre:</label>
@@ -135,7 +141,7 @@ export default function PartForm() {
             className="form-input"
           />
         </div>
-  
+
         <div className="form-group">
           <label htmlFor="color" className="form-label">Color:</label>
           <input
@@ -148,7 +154,7 @@ export default function PartForm() {
             className="form-input"
           />
         </div>
-  
+
         <div className="form-group">
           <label htmlFor="precio" className="form-label">Precio:</label>
           <input
@@ -162,7 +168,7 @@ export default function PartForm() {
             className="form-input"
           />
         </div>
-  
+
         <div className="form-group">
           <label htmlFor="idCategoria" className="form-label">Categoría:</label>
           <select
@@ -181,7 +187,7 @@ export default function PartForm() {
             ))}
           </select>
         </div>
-  
+
         <div className="form-group">
           <label htmlFor="medida" className="form-label">Medida:</label>
           <input
@@ -194,7 +200,7 @@ export default function PartForm() {
             className="form-input"
           />
         </div>
-  
+
         <div className="form-group">
           <label htmlFor="stock" className="form-label">Stock:</label>
           <input
@@ -207,7 +213,7 @@ export default function PartForm() {
             className="form-input"
           />
         </div>
-  
+
         <div className="form-group checkbox-group">
           <label className="checkbox-label">
             <input
@@ -220,7 +226,7 @@ export default function PartForm() {
             Activo
           </label>
         </div>
-  
+
         <div className="form-buttons">
           <button type="submit" disabled={mutation.isLoading} className="btn btn-primary">
             {mutation.isLoading ? 'Guardando...' : 'Guardar'}

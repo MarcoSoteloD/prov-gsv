@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { createSupply, updateSupply, getSupplies } from '../api/suministros';
 import { getProviders } from '../api/proveedores';
+import { fetchCsrfToken } from '../api/axios';
 
 export default function SupplyForm() {
   const navigate = useNavigate();
@@ -50,6 +51,11 @@ export default function SupplyForm() {
     return foundSupply;
   };
 
+  // Obtener token CSRF al montar el formulario
+  useEffect(() => {
+    fetchCsrfToken();
+  }, []);
+  
   useEffect(() => {
     if (!isEditing) return;
 

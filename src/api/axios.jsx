@@ -6,8 +6,18 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json'
-  } 
+  }
 });
+
+export const fetchCsrfToken = async () => {
+  try {
+    const res = await api.get('/csrf-token');
+    // Lo ponemos en el header por defecto para TODAS las peticiones mutables
+    api.defaults.headers.common['X-CSRF-Token'] = res.data.csrfToken;
+  } catch (err) {
+    console.error('Error al obtener el token CSRF', err);
+  }
+};
 
 // Interceptor para añadir token a las peticiones
 api.interceptors.request.use(config => {

@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { createCategory, updateCategory, getCategories } from '../api/categories';
+import { fetchCsrfToken } from '../api/axios';
 
 export default function CategoryForm() {
   const navigate = useNavigate();
@@ -44,6 +45,11 @@ export default function CategoryForm() {
 
     return foundCategory;
   };
+
+  // Obtener token CSRF al montar el formulario
+  useEffect(() => {
+    fetchCsrfToken();
+  }, []);
 
   // Cargar datos de la categoría al montar el componente si estamos editando
   useEffect(() => {

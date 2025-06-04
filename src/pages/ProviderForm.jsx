@@ -2,15 +2,16 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { createProvider, updateProvider, getProviders } from '../api/proveedores';
+import { fetchCsrfToken } from '../api/axios';
 
 export default function ProviderForm() {
   const navigate = useNavigate();
   const { id } = useParams();
   const queryClient = useQueryClient();
-  
+
   const isEditing = !!id;
   const [isLoadingProvider, setIsLoadingProvider] = useState(isEditing);
-  
+
   const [formData, setFormData] = useState({
     nombre: '',
     direccion: '',
@@ -28,7 +29,7 @@ export default function ProviderForm() {
       try {
         const response = await getProviders(currentPage, 10);
         const provider = response.data.find(prov => prov.idProveedor === parseInt(providerId));
-        
+
         if (provider) {
           foundProvider = provider;
         } else {
@@ -43,6 +44,11 @@ export default function ProviderForm() {
 
     return foundProvider;
   };
+
+  // Obtener token CSRF al montar el formulario
+  useEffect(() => {
+    fetchCsrfToken();
+  }, []);
 
   useEffect(() => {
     if (!isEditing) return;
@@ -72,7 +78,7 @@ export default function ProviderForm() {
   }, [id, isEditing]);
 
   const mutation = useMutation({
-    mutationFn: isEditing 
+    mutationFn: isEditing
       ? (data) => updateProvider(id, data)
       : createProvider,
     onSuccess: () => {
@@ -80,7 +86,7 @@ export default function ProviderForm() {
       navigate('/proveedores');
     }
   });
-  
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData(prev => ({
@@ -88,7 +94,7 @@ export default function ProviderForm() {
       [name]: type === 'checkbox' ? checked : value
     }));
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     mutation.mutate(formData);
@@ -101,7 +107,7 @@ export default function ProviderForm() {
   return (
     <div className="form-container">
       <h2 className="form-title">{isEditing ? 'Editar Proveedor' : 'Nuevo Proveedor'}</h2>
-  
+
       <form onSubmit={handleSubmit} className="form">
         <div className="form-group">
           <label htmlFor="nombre" className="form-label">Nombre:</label>
@@ -115,7 +121,7 @@ export default function ProviderForm() {
             className="form-input"
           />
         </div>
-  
+
         <div className="form-group">
           <label htmlFor="direccion" className="form-label">Dirección:</label>
           <input
@@ -128,7 +134,7 @@ export default function ProviderForm() {
             className="form-input"
           />
         </div>
-  
+
         <div className="form-group">
           <label htmlFor="telefono" className="form-label">Teléfono:</label>
           <input
@@ -141,7 +147,7 @@ export default function ProviderForm() {
             className="form-input"
           />
         </div>
-  
+
         <div className="form-group">
           <label htmlFor="email" className="form-label">Email:</label>
           <input
@@ -154,7 +160,7 @@ export default function ProviderForm() {
             className="form-input"
           />
         </div>
-  
+
         <div className="form-group checkbox-group">
           <label className="checkbox-label">
             <input
@@ -167,7 +173,7 @@ export default function ProviderForm() {
             Activo
           </label>
         </div>
-  
+
         <div className="form-buttons">
           <button type="submit" disabled={mutation.isLoading} className="btn btn-primary">
             {mutation.isLoading ? 'Guardando...' : 'Guardar'}
@@ -179,5 +185,5 @@ export default function ProviderForm() {
       </form>
     </div>
   );
-  
+
 }
